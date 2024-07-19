@@ -1,0 +1,106 @@
+USE DATABASE TESTDB;
+USE SCHEMA TESTSCHEMA;
+
+GRANT ROLE FULL_ACCESS_ROLE TO USER Akshay;
+
+GRANT ALL ON DATABASE TESTDB TO ROLE FULL_ACCESS_ROLE;
+GRANT ALL ON SCHEMA TESTDB.TESTSCHEMA TO ROLE FULL_ACCESS_ROLE;
+GRANT ALL ON TABLE TESTDB.TESTSCHEMA.employees TO ROLE FULL_ACCESS_ROLE;
+
+
+CREATE OR REPLACE TABLE employees (
+    employee_id INT,
+    full_name STRING,
+    email STRING,
+    phone_number STRING,
+    salary DECIMAL
+);
+
+INSERT INTO employees (employee_id, full_name, email, phone_number, salary) VALUES
+(1, 'John Doe', 'john.doe@example.com', '123-456-7890', 100000),
+(2, 'Jane Smith', 'jane.smith@example.com', '234-567-8901', 120000),
+(3, 'Alice Johnson', 'alice.johnson@example.com', '345-678-9012', 110000);
+
+CREATE OR REPLACE MASKING POLICY email_masking_policy AS
+(
+    val STRING
+) RETURNS STRING ->
+CASE
+    WHEN current_role() IN ('FULL_ACCESS_ROLE') THEN val
+    ELSE CONCAT(SUBSTR(val, 1, 1), REPEAT('*', POSITION('@', val) - 2), SUBSTR(val, POSITION('@', val) - 1))
+END;
+
+CREATE OR REPLACE MASKING POLICY phone_masking_policy AS
+(
+    val STRING
+) RETURNS STRING ->
+CASE
+    WHEN current_role() IN ('FULL_ACCESS_ROLE') THEN val
+    ELSE CONCAT('***-***-', SUBSTR(val, LENGTH(val) - 3, 4))
+END;
+
+
+
+select * from employees;
+
+
+ALTER TABLE employees MODIFY COLUMN email SET MASKING POLICY email_masking_policy;
+ALTER TABLE employees MODIFY COLUMN phone_number SET MASKING POLICY phone_masking_policy;
+
+
+select * from employees;
+
+SHOW GRANTS TO USER Akshay;
+
+USE ROLE FULL_ACCESS_ROLE;
+
+SHOW GRANTS TO USER Akshay;
+
+SHOW GRANTS ON TABLE TESTDB.TESTSCHEMA.employees;
+
+
+SELECT * FROM employees;
+
+
+
+
+USE DATABASE TESTDB;
+USE SCHEMA TESTSCHEMA;
+
+GRANT ALL PRIVILEGES ON DATABASE TESTDB TO ROLE FULL_ACCESS_ROLE;
+GRANT ALL PRIVILEGES ON SCHEMA TESTDB.TESTSCHEMA TO ROLE FULL_ACCESS_ROLE;
+GRANT ALL PRIVILEGES ON TABLE TESTDB.TESTSCHEMA.employees TO ROLE FULL_ACCESS_ROLE;
+
+GRANT ALL PRIVILEGES ON SCHEMA TESTDB.TESTSCHEMA TO ROLE FULL_ACCESS_ROLE;
+GRANT ALL PRIVILEGES ON TABLE TESTDB.TESTSCHEMA.employees TO ROLE FULL_ACCESS_ROLE;
+
+SHOW GRANTS ON SCHEMA TESTDB.TESTSCHEMA;
+SHOW GRANTS ON TABLE TESTDB.TESTSCHEMA.employees;
+
+
+SHOW GRANTS ON DATABASE TESTDB;
+SHOW GRANTS ON SCHEMA TESTDB.TESTSCHEMA;
+SHOW GRANTS ON TABLE TESTDB.TESTSCHEMA.employees;
+
+SELECT CURRENT_ROLE();
+
+use role ACCOUNTADMIN;
+SELECT CURRENT_ROLE();
+SELECT * FROM TESTDB.TESTSCHEMA.employees;
+
+
+USE ROLE FULL_ACCESS_ROLE;
+SELECT CURRENT_ROLE();
+SELECT * FROM TESTDB.TESTSCHEMA.employees;
+
+GRANT CREATE WAREHOUSE ON ACCOUNT TO ROLE FULL_ACCESS_ROLE;
+
+
+CREATE OR REPLACE WAREHOUSE my_warehouse
+WITH
+    WAREHOUSE_SIZE = 'XSmall'  
+    , AUTO_SUSPEND = 300         -- Time in seconds to automatically suspend the warehouse when not in use
+    , AUTO_RESUME = TRUE         -- Automatically resume the warehouse when a query is run
+    , MAX_CONCURRENCY_LEVEL = 8  -- Maximum number of concurrent queries
+    , MIN_CLUSTER_COUNT = 1      -- Minimum number of clusters
+    , MAX_CLUSTER_COUNT = 3;     -- Maximum number of clusters
