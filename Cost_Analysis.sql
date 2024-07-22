@@ -14,7 +14,7 @@ SELECT query_id
             else total_elapsed_sec
       end as total_elapsed_sec_1
      ,ROUND(unit_of_credit*total_elapsed_sec_1 / 60/60,2)  total_credit
-     ,total_credit*3.00 query_cost --change based on how much you are paying for a credit
+     ,total_credit*3.00 query_cost
 FROM (
   select query_id
      ,warehouse_name
@@ -35,7 +35,8 @@ FROM (
              (user_name => 'Jerish', 
               END_TIME_RANGE_START => dateadd('hours',-1,current_timestamp()), 
               END_TIME_RANGE_END => current_timestamp(),RESULT_LIMIT => 10000)))
-              where QUERY_ID = '685afd62b10af1e5e01db7be2041f0c7';
+              where QUERY_ID = '01b5d56c-0001-27da-0005-346200037b6e'
+
 
 
 //query to calculate cost of a query
