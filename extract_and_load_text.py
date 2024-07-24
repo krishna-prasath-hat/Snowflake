@@ -6,8 +6,8 @@ import fitz  # PyMuPDF
 
 # Snowflake connection parameters
 snowflake_account = 'oytvmyv-as20412'
-snowflake_user = 'AKSHAY'
-snowflake_password = 'Srini@1406'
+snowflake_user = ''
+snowflake_password = ''
 snowflake_database = 'unstructured'
 snowflake_schema = 'unstructured'
 snowflake_table = 'pdf_text_data'
