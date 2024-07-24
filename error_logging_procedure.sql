@@ -28,7 +28,7 @@ AS
 $$
 try {
     var result = snowflake.execute({
-        sqlText: `SELECT 1 / 0;`  
+        sqlText: `insert into test values ("1",'hello')`  
     });
     return 'Operation succeeded';
 } catch (err) {
@@ -43,4 +43,8 @@ $$;
 
 CALL sample_procedure_with_error_handling();
 
+
 select * from ERROR_LOG_TABLE
+
+
+select * from test;
