@@ -43,9 +43,9 @@ create the SF_connection.properties file in the config directory as
 
 ### starting kafka and zookeeper
 
-*  bin/kafka-server-start.sh config/server.properties
 *  bin/zookeeper-server-start.sh config/zookeeper.properties
-
+*  bin/kafka-server-start.sh config/server.properties
+  
 *   bin/kafka-topics.sh --create --topic test --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
 *   bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 *   ./bin/connect-standalone.sh config/connect-standalone.properties config/SF_connect.properties
