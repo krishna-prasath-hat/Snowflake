@@ -13,7 +13,7 @@
 
 ### Kafka Snowflake Integration:
 
-Download the required jar file -- [https://mvnrepository.com/artifact/com.snowflake/snowflake-kafka-connector/1.5.0](https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/2.3.0/snowflake-kafka-connector-2.3.0.jar)
+Download the required jar file -- https://repo1.maven.org/maven2/com/snowflake/snowflake-kafka-connector/2.3.0/snowflake-kafka-connector-2.3.0.jar
 
 Put this jar in libs folders
 
