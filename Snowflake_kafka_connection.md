@@ -26,6 +26,8 @@ eg : plugin.path=/kafka-3.7.1-src/kafka_2.13-3.7.1/libs
 
 * openssl genrsa -out rsa_key.pem 2048
 * openssl rsa -in rsa_key.pem -pubout -out rsa_key.pub
+
+Update for the user in snowflake 
 * alter user {User_name} set rsa_public_key='{Put the Public key content here}';
   
 Verify the public key is configured properly or not --
