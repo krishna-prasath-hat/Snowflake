@@ -34,6 +34,10 @@ Verify the public key is configured properly or not --
 ### To unset the Public Key in Snowflake:
 * alter user {User_name} unset rsa_public_key;
 
+### SF_connection.properties files
+
+create the SF_connection.properties file in the config directory as 
+[SF_connect.properties](https://github.com/your-username/your-repo/blob/main/config/SF_connect.properties)
 
 ### starting kafka and zookeeper
 
