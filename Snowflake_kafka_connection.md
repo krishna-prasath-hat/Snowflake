@@ -37,7 +37,7 @@ Verify the public key is configured properly or not --
 ### SF_connection.properties files
 
 create the SF_connection.properties file in the config directory as 
-[SF_connect.properties](https://github.com/your-username/your-repo/blob/main/config/SF_connect.properties)
+[SF_connect.properties](https://github.com/Krishna4802/Snowflake/blob/main/SF_connect.properties)
 
 ### starting kafka and zookeeper
 
