@@ -48,4 +48,8 @@ create the SF_connection.properties file in the config directory as
   
 *   bin/kafka-topics.sh --create --topic test --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
 *   bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+*   bin/kafka-console-producer.sh --topic test --bootstrap-server localhost:9092
+*   bin/kafka-console-consumer.sh --topic test --from-beginning --bootstrap-server localhost:9092
+
 *   ./bin/connect-standalone.sh config/connect-standalone.properties config/SF_connect.properties
