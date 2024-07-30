@@ -31,6 +31,3 @@ select SYSTEM$PIPE_STATUS('snowpipe.public.snowpipe');
 select * from snowpipe.public.snowtable;
 
 select * from table(information_schema.copy_history(table_name=>'snowpipe.public.snowtable',start_time=>dateadd(hours,-1,current_timestamp())));
-
-
-
