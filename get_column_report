@@ -1,0 +1,80 @@
+# To get the column report acress all the databases
+
+
+import snowflake.snowpark as snowpark
+
+def main(session: snowpark.Session) -> snowpark.DataFrame:
+    search_term = 'SYMBOL'
+
+    databases_query = "SHOW DATABASES"
+    databases_result = session.sql(databases_query).collect()
+
+    results = []
+
+    for row in databases_result:
+        database_name = row['name']
+        
+        columns_query = f"""
+            SELECT
+                '{database_name}' AS Database_name,
+                table_schema AS schema_name,
+                table_name,
+                column_name
+            FROM
+                {database_name}.information_schema.columns
+            WHERE
+                column_name ILIKE '%{search_term}%'
+            ORDER BY
+                table_schema, table_name
+        """
+        columns_result = session.sql(columns_query).collect()
+        
+        if columns_result:
+            columns_df = session.create_dataframe(columns_result, schema=[
+                'Database_name', 'schema_name', 'table_name', 'column_name'
+            ])
+            results.append(columns_df)
+
+    if results:
+        final_results_df = results[0]
+        for df in results[1:]:
+            final_results_df = final_results_df.union(df)
+    else:
+        final_results_df = session.create_dataframe([], schema=[
+            'Database_name', 'table_name', 'schema_name', 'column_name'
+        ])
+
+    return final_results_df
+
+
+
+
+######################################################################################################################################################
+
+# To get the column report in the database
+
+create or replace procedure get_column_report(col varchar)
+returns table (Database_name varchar,table_name varchar,schema_name varchar,column_name varchar)
+AS
+$$
+    DECLARE
+    resultset RESULTSET DEFAULT (
+    SELECT
+        current_database() as Database_name,
+        table_name,
+        table_schema,
+        column_name
+    FROM
+        information_schema.columns
+    WHERE
+        column_name ILIKE :col
+    ORDER BY
+        table_schema, table_name);
+    BEGIN
+        RETURN TABLE(resultset);
+    END;
+$$;
+
+
+
+CALL get_column_report('%SYmBOL%');
