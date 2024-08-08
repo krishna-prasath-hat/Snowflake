@@ -1,3 +1,15 @@
+create database stream_test;
+
+use database 
+
+create schema stream_test;
+
+use database stream_test;
+use schema stream_test;
+
+select * from test1;
+
+
 CREATE OR REPLACE TABLE customer (
     customer_id INT AUTOINCREMENT,
     first_name VARCHAR(50),
@@ -29,6 +41,7 @@ VALUES
  
 create or replace stream customer_stream on table  customer;
  
+ select * from customer;
  
 select * from customer_stream;
  
@@ -83,7 +96,7 @@ INSERT INTO customer_details (first_name, last_name, email)
 VALUES('Bob', 'Brown', 'bob.brown@example.com');
 
 update customer_details
-set first_name = 'tes2' where customer_id = 3;
+    set first_name = 'tes2' where customer_id = 102;
  
 show streams;
 
@@ -92,10 +105,6 @@ CREATE OR REPLACE STREAM customer_update_stream ON TABLE customer;
 
 SELECT c.*, s.* FROM customer c
 JOIN customer_stream s ON c.customer_id = s.customer_id;
-
-
-
-
 
 CREATE OR REPLACE STREAM customer_details_stream ON TABLE customer_details;
 

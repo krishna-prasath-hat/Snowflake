@@ -96,3 +96,13 @@ JOIN customer_stream s ON c.customer_id = s.customer_id;
 
 
 ALTER STREAM customer_stream SET RETENTION_TIME_IN_DAYS = 30;
+
+
+
+SHOW STREAMS like '%customer%';
+
+show streams;
+SELECT *
+FROM TABLE(RESULT_SCAN(LAST_QUERY_ID()))
+WHERE "table_name" ILIKE '%customer';
+
