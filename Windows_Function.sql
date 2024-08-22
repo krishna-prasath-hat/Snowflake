@@ -290,14 +290,17 @@ WHERE
     year = 2019;
 
 
-    SELECT 
-    name,
-	amount,
-    PERCENT_RANK() OVER (
-		PARTITION BY year
-        ORDER BY amount
-    )
- FROM 
-    sales_stats;
+SELECT 
+name,
+amount,
+PERCENT_RANK() OVER (
+	PARTITION BY year
+	ORDER BY amount
+)
+FROM 
+sales_stats;
 
 
+
+
+select * from STREAM_TEST.INFORMATION_SCHEMA.HYBRID_TABLES
