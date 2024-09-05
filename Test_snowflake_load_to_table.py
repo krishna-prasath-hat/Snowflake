@@ -13,6 +13,8 @@ snowflake_schema = 'unstructured'
 snowflake_table = 'pdf_text_data'
 
 # AWS S3 parameters
+
+
 aws_access_key_id = ''
 aws_secret_access_key = ''
 
