@@ -15,6 +15,7 @@ snowflake_table = 'pdf_text_data'
 # AWS S3 parameters
 aws_access_key_id = ''
 aws_secret_access_key = ''
+
 s3_bucket_name = 'snowflakebucket16789'
 file_key = 'Get_Started_With_Smallpdf.pdf'
 
